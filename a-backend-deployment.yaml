@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.35.0 (9532ceef3)
+  labels:
+    io.kompose.service: a-backend
+  name: a-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: a-backend
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.35.0 (9532ceef3)
+      labels:
+        io.kompose.service: a-backend
+    spec:
+      containers:
+        - env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: postgres
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://db:5432/postgres-assigment
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update
+          image: springboot_doc_assigment:latest
+          imagePullPolicy: Never
+          name: springboot-assigment-container
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
