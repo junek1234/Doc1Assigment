@@ -23,3 +23,10 @@ jobs:
     - name: Build and run tests
       # This runs your Spring Boot tests
       run: ./mvnw test
+
+    - name: Upload Test Report
+      if: always() # This runs even if the tests fail!
+      uses: actions/upload-artifact@v4
+      with:
+        name: junit-test-results
+        path: target/surefire-reports/*.xml
