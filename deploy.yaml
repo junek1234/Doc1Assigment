@@ -73,6 +73,7 @@ metadata:
     io.kompose.service: a-backend
   name: a-backend
 spec:
+  type: NodePort
   ports:
     - name: "8080"
       port: 8080
