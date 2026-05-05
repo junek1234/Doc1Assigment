@@ -12,6 +12,20 @@ jobs:
   backend-tests:
     name: Run Backend Tests
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14.1-alpine
+        env:
+          POSTGRES_DB: postgres-assigment
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v4
 
@@ -23,6 +37,8 @@ jobs:
           cache: maven
 
       - name: Run Backend Tests
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/postgres-assigment
         run: mvn -B test
 
   frontend-tests:
@@ -39,7 +55,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
-        run: cd frontend && npm ci
+        run: cd frontend && npm install
 
       - name: Run Frontend Tests
         run: cd frontend && npm test -- --passWithNoTests
