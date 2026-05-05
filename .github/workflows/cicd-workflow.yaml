@@ -88,11 +88,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Log in to Docker Hub
+      - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_PAT }}
 
       - name: Build and push Backend image
         uses: docker/build-push-action@v5
@@ -100,7 +101,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/via-tabloid-backend:latest
+          tags: ghcr.io/${{ github.repository_owner }}/via-tabloid-backend:latest
 
       - name: Build and push Frontend image
         uses: docker/build-push-action@v5
@@ -108,7 +109,7 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/via-tabloid-frontend:latest
+          tags: ghcr.io/${{ github.repository_owner }}/via-tabloid-frontend:latest
 
   # 3. CD - Deploy to Minikube
   deploy:
