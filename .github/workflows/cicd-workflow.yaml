@@ -138,9 +138,9 @@ jobs:
 
       - name: Deploy to Minikube
         run: |
-          # Use locally built images
-          sed -i 's|${{ secrets.DOCKERHUB_USERNAME }}/via-tabloid-backend:latest|via-tabloid-backend:latest|g' a-backend-deployment.yaml
-          sed -i 's|${{ secrets.DOCKERHUB_USERNAME }}/via-tabloid-frontend:latest|via-tabloid-frontend:latest|g' a-frontend-deployment.yaml
+          # Use locally built images and prevent image pull
+          sed -i 's|image: springboot_doc_assigment:latest|image: via-tabloid-backend:latest\n          imagePullPolicy: Never|g' a-backend-deployment.yaml
+          sed -i 's|image: a-frontend|image: via-tabloid-frontend:latest\n          imagePullPolicy: Never|g' a-frontend-deployment.yaml
           
           kubectl apply -f a-db-data-persistentvolumeclaim.yaml
           kubectl apply -f a-db-service.yaml
