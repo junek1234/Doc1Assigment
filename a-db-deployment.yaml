@@ -31,7 +31,6 @@ spec:
             - name: POSTGRES_USER
               value: postgres
           image: postgres:14.1-alpine
-          imagePullPolicy: Never
           name: postgres-assigment-container
           ports:
             - containerPort: 5432

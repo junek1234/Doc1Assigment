@@ -22,10 +22,18 @@ services:
     depends_on:
       - a-db
     environment:
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres-assigment
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://a-db:5432/postgres-assigment
     - SPRING_DATASOURCE_USERNAME=postgres
     - SPRING_DATASOURCE_PASSWORD=postgres
     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  a-frontend:
+    build:
+      context: ./frontend
+    container_name: 'node_assigment_container'
+    ports:
+      - 5173:5173
+    depends_on:
+      - a-backend
 
 volumes:
   a-db-data:
