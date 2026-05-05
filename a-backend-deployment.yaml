@@ -25,13 +25,12 @@ spec:
             - name: SPRING_DATASOURCE_PASSWORD
               value: postgres
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://db:5432/postgres-assigment
+              value: jdbc:postgresql://a-db:5432/postgres-assigment
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
               value: update
           image: springboot_doc_assigment:latest
-          imagePullPolicy: Never
           name: springboot-assigment-container
           ports:
             - containerPort: 8080

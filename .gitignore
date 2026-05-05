@@ -34,3 +34,7 @@ build/
 
 # Local archive artifacts
 springboot_doc_assigment.tar
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
