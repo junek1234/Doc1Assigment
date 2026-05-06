@@ -31,6 +31,7 @@ spec:
             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
               value: update
           image: springboot_doc_assigment:latest
+          imagePullPolicy: Never
           name: springboot-assigment-container
           ports:
             - containerPort: 8080
