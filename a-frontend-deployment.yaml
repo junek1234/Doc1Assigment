@@ -22,6 +22,7 @@ spec:
     spec:
       containers:
         - image: a-frontend
+          imagePullPolicy: Never
           name: node-assigment-container
           ports:
             - containerPort: 5173
